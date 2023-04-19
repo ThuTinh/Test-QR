@@ -1,10 +1,16 @@
 import QrScanner from "qr-scanner";
 import { useEffect, useRef, useState } from "react";
 
+// const greyScaleWeights = {
+//   red: 0.2126,
+//   green: 0.7152,
+//   blue: 0.0722,
+//   useIntegerApproximation: false,
+// };
 export const CustomQrScanner = () => {
   const [videoRef, setVideoRef] = useState(useRef<HTMLVideoElement>().current);
   const [camera, setCamera] = useState<QrScanner | null>(null);
-  const [data, setData] = useState("No result");
+  const [data, setData] = useState("No result V2");
   useEffect(() => {
     if (videoRef) {
       const cam = new QrScanner(videoRef, (result) => onResult(result), {
@@ -14,6 +20,9 @@ export const CustomQrScanner = () => {
         highlightScanRegion: true,
         highlightCodeOutline: true,
       });
+      cam?.setInversionMode("both");
+      cam?.setCamera("environment");
+      cam?.setGrayscaleWeights(0.2, 0.8, 0.8, false);
       cam.start();
       setCamera(cam);
     }
@@ -32,9 +41,6 @@ export const CustomQrScanner = () => {
       <h1>{data}</h1>
       <button
         onClick={() => {
-          camera?.setInversionMode("original");
-          camera?.setCamera("environment");
-          camera?.setGrayscaleWeights(0, 0, 0);
           camera?.start();
         }}
       >
