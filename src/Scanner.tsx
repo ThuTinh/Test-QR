@@ -1,4 +1,4 @@
-import QrScanner from "qr-scanner";
+import QrScanner from "qr-scanner-card";
 import { useEffect, useRef, useState } from "react";
 
 // const greyScaleWeights = {
@@ -22,7 +22,7 @@ export const CustomQrScanner = () => {
       });
       cam?.setInversionMode("both");
       cam?.setCamera("environment");
-      cam?.setGrayscaleWeights(0.2, 0.8, 0.8, false);
+      // cam?.setGrayscaleWeights(0.2, 0.8, 0.8, true);
       cam.start();
       setCamera(cam);
     }
@@ -54,7 +54,7 @@ export const CustomQrScanner = () => {
         STOP
       </button>
       <video
-        style={{ width: "200px", height: "200px" }}
+        style={{ width: "300px", height: "300px" }}
         ref={(r) => {
           if (r) {
             setVideoRef(r);
